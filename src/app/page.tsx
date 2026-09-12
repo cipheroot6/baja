@@ -1,46 +1,37 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import VideoSection from "@/components/VideoSection";
-import AboutSection from "@/components/AboutSection";
-import GallerySection from "@/components/GallerySection";
-import SponsorsSection from "@/components/SponsorsSection";
+import Hero from "@/components/Hero";
+import Stats from "@/components/Stats";
+import About from "@/components/About";
+import Journey from "@/components/Journey";
+import Categories from "@/components/Categories";
+import Departments from "@/components/Departments";
+import Skills from "@/components/Skills";
+import WhyJoin from "@/components/WhyJoin";
+import Roadmap from "@/components/Roadmap";
+import FAQ from "@/components/FAQ";
+import Apply from "@/components/Apply";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import Achievement from "@/components/Achievement";
-import VideoShowcase from "@/components/video-showcase";
-import Loader from "@/components/Loader";
 
-const Index = () => {
-   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Fake delay for demo; replace with real load logic
-    const timer = setTimeout(() => setLoading(false), 2650);
-    return () => clearTimeout(timer);
-  }, []);
+export default function Home() {
   return (
     <>
-      {loading ? (
-        <Loader onFinish={undefined} />
-      ) : (
-        <div className="min-h-screen">
-          <Navbar />
-          <main id="main-content">
-            <HeroSection />
-            <VideoSection />
-            <AboutSection />
-            <VideoShowcase />
-            <GallerySection />
-            <Achievement />
-            <SponsorsSection />
-          </main>
-          <Footer />
-        </div>
-      )}
+      <Navbar />
+      <main>
+        <Hero />
+        <Stats />
+        <About />
+        <Journey />
+        <Categories />
+        <Departments />
+        <Skills />
+        <WhyJoin />
+        <Roadmap />
+        <FAQ />
+        <Apply />
+        <Contact />
+      </main>
+      <Footer />
     </>
   );
-};
-
-export default Index;
+}

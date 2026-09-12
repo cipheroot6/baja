@@ -1,163 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Racing Team Design System - Modern Minimalist
-All colors MUST be HSL.
-*/
+@theme {
+  --color-primary: #ff6b00;
+  --color-primary-dark: #d95900;
+  --color-primary-soft: #fff1e5;
+  --color-navy: #1a1a2e;
+  --color-navy-light: #262645;
+  --color-navy-dark: #12121f;
+  --color-accent: #00d4ff;
+  --color-accent-soft: #e0f8ff;
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 5%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 5%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 5%;
-
-    --primary: 0 0% 5%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 10%;
-
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 0 73% 50%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 73% 50%;
-
-    /* Racing-specific design tokens */
-    --racing-red: 0 73% 50%;
-    --racing-red-dark: 0 73% 40%;
-    --racing-black: 0 0% 5%;
-    --racing-white: 0 0% 98%;
-    --racing-gray: 0 0% 45%;
-    --racing-gray-light: 0 0% 96%;
-    
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5% / 0.7), hsl(0 0% 5% / 0.4));
-    --gradient-section: linear-gradient(180deg, hsl(0 0% 98%), hsl(0 0% 96%));
-    --gradient-dark: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 0% 3%));
-    
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(0 0% 5% / 0.2);
-    --shadow-racing: 0 25px 50px -12px hsl(0 73% 50% / 0.3);
-    --shadow-card: 0 4px 20px hsl(0 0% 5% / 0.1);
-    
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 98%;
-
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 0 0% 8%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 5%;
-
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-
-    --accent: 0 73% 55%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 73% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground font-sans;
-  }
-
   html {
     scroll-behavior: smooth;
   }
-}
 
-@layer components {
-  /* Racing-specific component styles */
-  .hero-overlay {
-    background: var(--gradient-hero);
+  section[id] {
+    scroll-margin-top: 4.5rem;
   }
-  
-  .racing-button {
-    @apply bg-accent text-accent-foreground px-8 py-3 font-semibold tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_hsl(var(--racing-red)/0.5)];
-  }
-  
-  .racing-button-outline {
-    @apply border-2 border-accent text-accent px-8 py-3 font-semibold tracking-wide transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:scale-105;
-  }
-  
-  .section-fade {
-    @apply opacity-0 translate-y-10 transition-all duration-700;
-  }
-  
-  .section-fade.visible {
-    @apply opacity-100 translate-y-0;
-  }
-  
-  .navbar-blur {
-    backdrop-filter: blur(10px);
-    background: hsl(0 0% 98% / 0.9);
-  }
-  
-  .sponsor-logo {
-    @apply grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110;
+
+  body {
+    background-color: var(--color-white);
+    color: var(--color-navy);
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
   }
 }
