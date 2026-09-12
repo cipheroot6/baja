@@ -1,0 +1,20 @@
+npm notice run vite_react_shadcn_ts@0.0.0 dev
+npm notice run next dev
+▲ Next.js 16.3.5 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.1.33:3000
+✓ Ready in 1180ms
+⚠ `eslint` configuration in next.config.mjs is no longer supported. See more info here: https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+⚠ Invalid next.config.mjs options detected: 
+⚠     Unrecognized key(s) in object: 'eslint'
+⚠ See more info here: https://nextjs.org/docs/messages/invalid-next-config
+✓ Running next.config.mjs took 56ms
+
+✓ Generated AGENTS.md and CLAUDE.md for AI agents. Set `agentRules: false` in next.config to disable.
+  Using external babel configuration from /home/cipheroot/allcode/apex/.babelrc
+⚠ It looks like there is a custom Babel configuration that can be removed.
+○ Compiling / ...
+Browserslist: browsers data (caniuse-lite) is 15 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+ GET / 200 in 13.4s (next.js: 12.8s, application-code: 582ms)

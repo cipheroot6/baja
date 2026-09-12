@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { Card } from "@/components/ui/card";
-import videoFile2 from "@/assets/lat-test.mp4";
 
 interface VideoItem {
   id: string;

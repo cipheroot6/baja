@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import videoFile from "@/assets/video.mp4";
 
 const VideoSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -50,7 +49,7 @@ const VideoSection = () => {
         playsInline
       >
         {/* Placeholder for actual video - using a solid color for now */}
-        <source src={videoFile} type="video/mp4" />
+        <source src="/video.mp4" type="video/mp4" />
       </video>
       
       {/* Fallback background for when video isn't available */}
