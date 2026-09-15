@@ -10,6 +10,8 @@ export const siteConfig = {
   themeColor: "#ff6b00",
   founded: 2023,
 
+  heroImage: "/img/vehicle.jpg" as string | null,
+
   model: {
     url: null as string | null,
   },

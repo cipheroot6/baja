@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
+import ThemeCustomizer from "@/components/ThemeCustomizer";
 import About from "@/components/About";
 import Journey from "@/components/Journey";
 import Categories from "@/components/Categories";
@@ -32,6 +33,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <ThemeCustomizer />
     </>
   );
 }

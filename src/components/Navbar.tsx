@@ -29,13 +29,13 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 backdrop-blur-sm ${
         scrolled || open
-          ? "border-b border-white/10 bg-navy-dark/90 backdrop-blur-sm"
-          : "bg-transparent"
+          ? "border-white/10 bg-navy-dark/90"
+          : "border-white/5 bg-navy-dark/40"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
         <button
           onClick={() => scrollTo("home")}
           className="font-display text-sm font-extrabold tracking-wide text-white sm:text-base"

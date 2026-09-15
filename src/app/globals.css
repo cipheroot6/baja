@@ -15,6 +15,31 @@
   --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
+:root {
+  --tb-primary: #ff6b00;
+  --tb-primary-dark: #d95900;
+  --tb-accent: #00d4ff;
+  --tb-navy: #1a1a2e;
+  --tb-navy-light: #262645;
+  --tb-navy-dark: #12121f;
+
+  --tb-font-heading:
+    var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --tb-font-body: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: var(--tb-primary);
+  --color-primary-dark: var(--tb-primary-dark);
+  --color-primary-soft: color-mix(in srgb, var(--tb-primary) 14%, white);
+  --color-navy: var(--tb-navy);
+  --color-navy-light: var(--tb-navy-light);
+  --color-navy-dark: var(--tb-navy-dark);
+  --color-accent: var(--tb-accent);
+  --color-accent-soft: color-mix(in srgb, var(--tb-accent) 12%, white);
+
+  --font-display: var(--tb-font-heading);
+  --font-sans: var(--tb-font-body);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -25,7 +50,7 @@
   }
 
   body {
-    background-color: var(--color-white);
+    background-color: var(--color-navy-dark);
     color: var(--color-navy);
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;

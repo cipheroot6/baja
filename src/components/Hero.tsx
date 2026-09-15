@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 
 const Vehicle3D = dynamic(() => import("@/components/Vehicle3D"), {
@@ -27,7 +28,21 @@ export default function Hero() {
       className="grid min-h-[100svh] bg-navy-dark md:grid-cols-2"
     >
       <div className="relative h-[48svh] md:h-full" aria-hidden="true">
-        <Vehicle3D modelUrl={siteConfig.model.url} />
+        {siteConfig.heroImage ? (
+          <div className="relative h-full w-full overflow-hidden bg-navy-dark">
+            <Image
+              src={siteConfig.heroImage}
+              alt=""
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              preload
+              className="object-contain object-center"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-dark/60 via-transparent to-navy-dark/40 md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-navy-dark/60" />
+          </div>
+        ) : (
+          <Vehicle3D modelUrl={siteConfig.model.url} />
+        )}
       </div>
 
       <div className="flex flex-col justify-center gap-6 px-6 py-12 sm:px-10 md:px-14 md:py-20 lg:px-16">
