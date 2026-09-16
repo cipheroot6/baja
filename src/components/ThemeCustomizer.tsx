@@ -1,6 +1,14 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
+import {
+  getPrefsSnapshot,
+  resetPrefs,
+  serverPrefs,
+  subscribePrefs,
+  TRANSITION_OPTIONS,
+  writePrefs,
+} from "@/lib/preferences";
 
 interface Palette {
   id: string;
@@ -220,13 +228,6 @@ const FONT_PAIRS: FontPair[] = [
   },
 ];
 
-const STORAGE_KEY = "abhyuday-customizer";
-
-interface Stored {
-  paletteId: string;
-  fontId: string;
-}
-
 function mix(hexA: string, hexB: string, t: number): string {
   const a = [1, 3, 5].map((i) => parseInt(hexA.slice(i, i + 2), 16));
   const b = [1, 3, 5].map((i) => parseInt(hexB.slice(i, i + 2), 16));
@@ -236,101 +237,45 @@ function mix(hexA: string, hexB: string, t: number): string {
   return `#${out.join("")}`;
 }
 
-function applyPalette(palette: Palette) {
-  const root = document.documentElement;
-  root.style.setProperty("--tb-primary", palette.primary);
-  root.style.setProperty("--tb-primary-dark", mix(palette.primary, "#000000", 0.28));
-  root.style.setProperty("--tb-accent", palette.accent);
-  root.style.setProperty("--tb-navy-dark", palette.base);
-  root.style.setProperty("--tb-navy", mix(palette.base, "#ffffff", 0.05));
-  root.style.setProperty("--tb-navy-light", mix(palette.base, "#ffffff", 0.16));
-}
-
-function applyFonts(fonts: FontPair) {
-  const root = document.documentElement;
-  root.style.setProperty("--tb-font-heading", fonts.heading);
-  root.style.setProperty("--tb-font-body", fonts.body);
-}
-
-function readStored(): Stored | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Stored) : null;
-  } catch {
-    return null;
-  }
-}
-
-let cached: Stored | null = null;
-const STORE_KEY = `${STORAGE_KEY}-store`;
-
-function getSnapshot(): Stored | null {
-  if (cached === null) {
-    try {
-      cached = readStored();
-    } catch {
-      cached = null;
-    }
-  }
-  return cached;
-}
-
-function getServerSnapshot(): Stored | null {
-  return null;
-}
-
-function subscribe(onChange: () => void) {
-  window.addEventListener(STORE_KEY, onChange);
-  window.addEventListener("storage", onChange);
-  return () => {
-    window.removeEventListener(STORE_KEY, onChange);
-    window.removeEventListener("storage", onChange);
-  };
-}
-
-function commitStored(value: Stored) {
-  cached = value;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
-  } catch {
-    // ignore
-  }
-  window.dispatchEvent(new Event(STORE_KEY));
-}
-
 export default function ThemeCustomizer() {
   const [open, setOpen] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
 
-  const stored = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-  const paletteId = stored?.paletteId ?? PALETTES[0].id;
-  const fontId = stored?.fontId ?? FONT_PAIRS[0].id;
+  const prefs = useSyncExternalStore(subscribePrefs, getPrefsSnapshot, serverPrefs);
+  const paletteId = prefs.paletteId;
+  const fontId = prefs.fontId;
+  const transitionId = prefs.transitionId;
+
+  const applyPalette = (id: string) => {
+    const palette = PALETTES.find((p) => p.id === id) ?? PALETTES[0];
+    const root = document.documentElement;
+    root.style.setProperty("--tb-primary", palette.primary);
+    root.style.setProperty("--tb-primary-dark", mix(palette.primary, "#000000", 0.28));
+    root.style.setProperty("--tb-accent", palette.accent);
+    root.style.setProperty("--tb-navy-dark", palette.base);
+    root.style.setProperty("--tb-navy", mix(palette.base, "#ffffff", 0.05));
+    root.style.setProperty("--tb-navy-light", mix(palette.base, "#ffffff", 0.16));
+  };
+
+  const applyFonts = (id: string) => {
+    const fonts = FONT_PAIRS.find((f) => f.id === id) ?? FONT_PAIRS[0];
+    const root = document.documentElement;
+    root.style.setProperty("--tb-font-heading", fonts.heading);
+    root.style.setProperty("--tb-font-body", fonts.body);
+  };
 
   useEffect(() => {
-    const palette = PALETTES.find((p) => p.id === paletteId) ?? PALETTES[0];
-    applyPalette(palette);
+    applyPalette(paletteId);
   }, [paletteId]);
 
   useEffect(() => {
-    const fonts = FONT_PAIRS.find((f) => f.id === fontId) ?? FONT_PAIRS[0];
-    applyFonts(fonts);
+    applyFonts(fontId);
   }, [fontId]);
 
   const confirm = () => {
-    commitStored({ paletteId, fontId });
     setConfirmed(true);
     setOpen(false);
     window.setTimeout(() => setConfirmed(false), 1600);
-  };
-
-  const reset = () => {
-    try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch {
-      // ignore
-    }
-    cached = null;
-    window.dispatchEvent(new Event(STORE_KEY));
   };
 
   return (
@@ -372,7 +317,7 @@ export default function ThemeCustomizer() {
           <aside
             id="theme-customizer"
             role="dialog"
-            aria-label="Customize colors and fonts"
+            aria-label="Customize colors, fonts and transitions"
             className="absolute inset-y-0 left-0 flex w-full max-w-2xl flex-col border-r border-white/10 bg-neutral-950 shadow-2xl shadow-black/60"
           >
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
@@ -381,7 +326,7 @@ export default function ThemeCustomizer() {
                   Live Preview
                 </p>
                 <h2 className="font-display text-lg font-extrabold text-white">
-                  Colors &amp; Fonts
+                  Colors, Fonts &amp; Transitions
                 </h2>
               </div>
               <button
@@ -410,7 +355,7 @@ export default function ThemeCustomizer() {
                   return (
                     <button
                       key={palette.id}
-                      onClick={() => commitStored({ paletteId: palette.id, fontId })}
+                      onClick={() => writePrefs({ paletteId: palette.id })}
                       className={`group overflow-hidden rounded-xl border text-left transition-colors ${
                         selected
                           ? "border-white bg-white/10"
@@ -451,7 +396,7 @@ export default function ThemeCustomizer() {
                   return (
                     <button
                       key={pair.id}
-                      onClick={() => commitStored({ paletteId, fontId: pair.id })}
+                      onClick={() => writePrefs({ fontId: pair.id })}
                       className={`flex items-center justify-between rounded-xl border px-4 py-4 text-left transition-colors ${
                         selected
                           ? "border-white bg-white/10"
@@ -481,6 +426,43 @@ export default function ThemeCustomizer() {
                   );
                 })}
               </div>
+
+              <div className="mt-6 flex items-center justify-between">
+                <h3 className="font-display text-sm font-bold tracking-wide text-white/90 uppercase">
+                  Track Transition
+                </h3>
+                <span className="font-mono text-[0.65rem] text-white/40">
+                  {TRANSITION_OPTIONS.length} styles
+                </span>
+              </div>
+              <div className="mt-3 grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+                {TRANSITION_OPTIONS.map((option) => {
+                  const selected = option.id === transitionId;
+                  return (
+                    <button
+                      key={option.id}
+                      onClick={() => writePrefs({ transitionId: option.id })}
+                      className={`flex flex-col items-start rounded-xl border px-4 py-3.5 text-left transition-colors ${
+                        selected
+                          ? "border-primary bg-primary/15"
+                          : "border-white/10 bg-white/5 hover:bg-white/10"
+                      }`}
+                      aria-pressed={selected}
+                      aria-label={`Use ${option.name} track transition`}
+                    >
+                      <span className="flex w-full items-center justify-between">
+                        <span className="text-sm font-bold text-white">{option.name}</span>
+                        {selected && (
+                          <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                        )}
+                      </span>
+                      <span className="mt-1 text-xs leading-relaxed text-white/60">
+                        {option.desc}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="flex gap-2 border-t border-white/10 px-5 py-4">
@@ -491,7 +473,7 @@ export default function ThemeCustomizer() {
                 {confirmed ? "Saved!" : "Confirm choice"}
               </button>
               <button
-                onClick={reset}
+                onClick={resetPrefs}
                 className="flex h-12 items-center justify-center rounded-xl border border-white/15 px-4 text-sm font-semibold text-white/80 transition-colors hover:bg-white/10"
               >
                 Reset

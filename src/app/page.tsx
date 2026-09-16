@@ -1,31 +1,28 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Stats from "@/components/Stats";
 import ThemeCustomizer from "@/components/ThemeCustomizer";
+import TrackChooser from "@/components/TrackChooser";
+import TrackStage from "@/components/TrackStage";
 import About from "@/components/About";
 import Journey from "@/components/Journey";
-import Categories from "@/components/Categories";
-import Departments from "@/components/Departments";
-import Skills from "@/components/Skills";
 import WhyJoin from "@/components/WhyJoin";
 import Roadmap from "@/components/Roadmap";
 import FAQ from "@/components/FAQ";
 import Apply from "@/components/Apply";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import { TrackProvider } from "@/lib/track";
 
 export default function Home() {
   return (
-    <>
+    <TrackProvider>
       <Navbar />
       <main>
         <Hero />
-        <Stats />
+        <TrackChooser />
         <About />
+        <TrackStage />
         <Journey />
-        <Categories />
-        <Departments />
-        <Skills />
         <WhyJoin />
         <Roadmap />
         <FAQ />
@@ -34,6 +31,6 @@ export default function Home() {
       </main>
       <Footer />
       <ThemeCustomizer />
-    </>
+    </TrackProvider>
   );
 }

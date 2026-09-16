@@ -242,3 +242,133 @@ export const applySteps = [
     body: "Welcome session, onboarding and your first training week.",
   },
 ];
+
+export type Track = "abaja" | "ebaja";
+
+export interface TrackContent {
+  stats: { value: string; label: string }[];
+  category: (typeof categories)[number];
+  departments: { name: string; role: string; body: string }[];
+  skills: { group: string; skills: string[] }[];
+}
+
+export const trackContent: Record<Track, TrackContent> = {
+  abaja: {
+    stats: [
+      { value: "ROS2", label: "Autonomous stack you'll learn" },
+      { value: "DBW", label: "Full drive-by-wire system" },
+      { value: "3", label: "Runtime perception systems" },
+      { value: "0", label: "Drivers in the loop" },
+    ],
+    category: categories[0],
+    departments: [
+      {
+        name: "Perception & Software",
+        role: "The Brain",
+        body: "Object and lane detection with Python, OpenCV, YOLO and ROS2.",
+      },
+      {
+        name: "Drive-By-Wire",
+        role: "The Body",
+        body: "Steer, throttle and brake actuation over CANBus with Arduino and STM32.",
+      },
+      {
+        name: "Autonomy Simulation",
+        role: "The Trainer",
+        body: "AEB, LKA and endurance testing in IPG CarMaker before the real run.",
+      },
+      {
+        name: "Embedded Systems",
+        role: "The Nerves",
+        body: "Sensor fusion, boards, and wiring that keep the stack alive.",
+      },
+      {
+        name: "Documentation",
+        role: "The Memory",
+        body: "Design reports and presentations that earn real competition points.",
+      },
+      {
+        name: "Sales & Sponsorship",
+        role: "The Funding",
+        body: "Sponsor outreach, proposals and social media that keep the team moving.",
+      },
+    ],
+    skills: [
+      {
+        group: "Software & AI",
+        skills: ["Python", "ROS2", "OpenCV", "YOLO", "Linux", "Git & GitHub"],
+      },
+      {
+        group: "Control & Simulation",
+        skills: ["IPG CarMaker", "MATLAB", "State Machines", "Control Systems"],
+      },
+      {
+        group: "Embedded & Electronics",
+        skills: ["Arduino", "STM32", "CANBus", "Sensors", "Wiring"],
+      },
+      {
+        group: "Soft Skills",
+        skills: ["Teamwork", "Presentation", "Project Management", "Problem Solving"],
+      },
+    ],
+  },
+  ebaja: {
+    stats: [
+      { value: "48V", label: "Battery pack architecture" },
+      { value: "20/20", label: "HV safety target from 2026" },
+      { value: "2WD", label: "Drivetrain platform" },
+      { value: "400+", label: "Teams we race against" },
+    ],
+    category: categories[1],
+    departments: [
+      {
+        name: "Powertrain",
+        role: "The Heart",
+        body: "Motor, controller, battery pack and BMS tuned for the course.",
+      },
+      {
+        name: "High-Voltage Safety",
+        role: "The Shield",
+        body: "TSAL, isolation monitoring and safe packaging of the 48V/72V pack.",
+      },
+      {
+        name: "Chassis & Suspension",
+        role: "The Muscles",
+        body: "Frames, suspension and fabrication drawn in CAD and built to survive.",
+      },
+      {
+        name: "Electrical Systems",
+        role: "The Nerves",
+        body: "Wiring harnesses, sensors and power distribution across the vehicle.",
+      },
+      {
+        name: "Documentation",
+        role: "The Memory",
+        body: "Design reports and presentations that earn real competition points.",
+      },
+      {
+        name: "Sales & Sponsorship",
+        role: "The Funding",
+        body: "Sponsor outreach, proposals and social media that keep the team moving.",
+      },
+    ],
+    skills: [
+      {
+        group: "Powertrain & Battery",
+        skills: ["Motor & Controller", "BMS", "Battery Pack", "72V Systems"],
+      },
+      {
+        group: "HV Safety",
+        skills: ["TSAL", "Isolation Monitoring", "Safe Packaging", "Interlocks"],
+      },
+      {
+        group: "Dynamics & Fabrication",
+        skills: ["Suspension", "Tires & Gears", "SolidWorks", "Welding"],
+      },
+      {
+        group: "Soft Skills",
+        skills: ["Teamwork", "Presentation", "Project Management", "Problem Solving"],
+      },
+    ],
+  },
+};
