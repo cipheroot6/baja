@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Team Abhyuday Racing",
   shortName: "Abhyuday Racing",
   title: "Team Abhyuday Racing | aBAJA & eBAJA Student Racing Team",
-  tagline: "Build. Race. Compete. Nationally.",
+  tagline: "ARISE. CONQUER. REPEAT.",
   college: "G.H. Raisoni College of Engineering and Management, Pune",
   description:
     "Team Abhyuday Racing is GHRCEM Pune's student-led aBAJA & eBAJA racing team, designing and building autonomous and electric all-terrain vehicles for BAJA SAEINDIA competitions.",
@@ -19,7 +19,6 @@ export const siteConfig = {
   join: {
     formUrl: "#apply",
     waiverUrl: "#",
-    deadline: "30 September 2026",
   },
 
   contact: {

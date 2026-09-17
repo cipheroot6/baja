@@ -145,8 +145,7 @@ export default function TrackChooser() {
           Which world do you want to enter?
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-base leading-relaxed text-white/60 sm:text-lg">
-          Everything below transforms to match your pick. aBAJA is selected by
-          default — click a card to flip into that world.
+          Choose Your Machine
         </p>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2" role="radiogroup" aria-label="Competition track">

@@ -3,7 +3,7 @@ import { applySteps } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Apply() {
-  const { formUrl, deadline } = siteConfig.join;
+  const { formUrl } = siteConfig.join;
 
   return (
     <section id="apply" className="bg-white">
@@ -12,7 +12,6 @@ export default function Apply() {
           align="center"
           eyebrow="Recruitment 2027"
           title="Ready to Race?"
-          subtitle={`Applications close ${deadline}. Four steps between you and the garage.`}
         />
 
         <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -39,9 +38,6 @@ export default function Apply() {
             <p className="font-display text-lg font-bold text-white sm:text-xl">
               Team Abhyuday Racing — Recruitment 2027
             </p>
-            <span className="rounded-full border border-primary/50 px-4 py-1.5 font-mono text-xs font-semibold tracking-wider text-primary">
-              DEADLINE {deadline.toUpperCase()}
-            </span>
           </div>
 
           {formUrl === "#apply" ? (

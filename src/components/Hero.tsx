@@ -67,7 +67,7 @@ export default function Hero() {
           <span className="block text-accent">Racing</span>
         </h1>
 
-        <p className="max-w-md text-lg font-medium text-white/90 sm:text-2xl">
+        <p className="max-w-md font-mono text-base font-semibold tracking-[0.15em] text-white/90 sm:text-xl">
           {siteConfig.tagline}
         </p>
         <p className="max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
@@ -76,21 +76,6 @@ export default function Hero() {
           <span className="text-accent">eBAJA</span>. We design, build and race
           them at BAJA SAEINDIA.
         </p>
-
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <a
-            href={siteConfig.join.formUrl}
-            className="flex h-14 items-center justify-center rounded-xl bg-primary px-8 text-base font-bold text-white shadow-lg shadow-primary/25 transition-transform active:scale-[0.98] sm:px-10"
-          >
-            Apply Now
-          </a>
-          <a
-            href="#about"
-            className="flex h-14 items-center justify-center rounded-xl border border-white/20 px-8 text-base font-semibold text-white transition-colors hover:border-accent hover:text-accent"
-          >
-            Discover Our Story
-          </a>
-        </div>
       </div>
     </section>
   );

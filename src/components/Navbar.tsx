@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { sections } from "@/lib/content";
-import { siteConfig } from "@/lib/site-config";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -55,12 +54,6 @@ export default function Navbar() {
               {section.label}
             </button>
           ))}
-          <a
-            href={siteConfig.join.formUrl}
-            className="rounded-lg bg-primary px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-primary-dark"
-          >
-            Apply Now
-          </a>
         </nav>
 
         <button
@@ -101,12 +94,6 @@ export default function Navbar() {
               {section.label}
             </button>
           ))}
-          <a
-            href={siteConfig.join.formUrl}
-            className="mt-2 flex h-13 min-h-13 items-center justify-center rounded-xl bg-primary px-5 text-base font-bold text-white"
-          >
-            Apply Now
-          </a>
         </nav>
       )}
     </header>
