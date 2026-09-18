@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import { AnimatePresence, motion, type TargetAndTransition } from "motion/react";
 import { useTrack } from "@/lib/track";
 import {
@@ -9,6 +9,7 @@ import {
   subscribePrefs,
   type TransitionId,
 } from "@/lib/preferences";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import Stats from "@/components/Stats";
 import Categories from "@/components/Categories";
 import Departments from "@/components/Departments";
@@ -35,28 +36,13 @@ const TRANSITION_DEFS: Record<
   },
 };
 
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const timer = window.setTimeout(() => setReduced(query.matches), 0);
-    const onChange = () => setReduced(query.matches);
-    query.addEventListener("change", onChange);
-    return () => {
-      window.clearTimeout(timer);
-      query.removeEventListener("change", onChange);
-    };
-  }, []);
-  return reduced;
-}
-
 export default function TrackStage() {
   const { track } = useTrack();
   const prefs = useSyncExternalStore(subscribePrefs, getPrefsSnapshot, serverPrefs);
-  const reduced = usePrefersReducedMotion();
+  const { duration: dur } = usePrefersReducedMotion();
   const transitionId = prefs.transitionId;
   const def = TRANSITION_DEFS[transitionId];
-  const duration = reduced ? 0 : 0.5;
+  const duration = dur(0.5);
 
   return (
     <div style={{ perspective: transitionId === "flip" ? 1600 : undefined }}>

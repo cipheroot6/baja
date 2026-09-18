@@ -1,11 +1,21 @@
+"use client";
+
+import { motion } from "motion/react";
+import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
 import SectionHeading from "@/components/SectionHeading";
 import { aboutPoints } from "@/lib/content";
 
 export default function About() {
   return (
     <section id="about" className="bg-white">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:gap-20">
-        <div className="space-y-5 self-center">
+      <motion.div
+        variants={staggerContainer(0.12)}
+        initial="hidden"
+        whileInView="show"
+        viewport={VIEWPORT}
+        className="mx-auto grid max-w-6xl gap-12 px-6 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:gap-20"
+      >
+        <motion.div variants={fadeUpItem} className="space-y-5 self-center">
           <SectionHeading
             eyebrow="Who We Are"
             title="Engineering Excellence, Driven by Students"
@@ -23,9 +33,13 @@ export default function About() {
             generation of automotive engineers. No experience needed — we train
             you.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col justify-center gap-4" role="list">
+        <motion.div
+          variants={fadeUpItem}
+          className="flex flex-col justify-center gap-4"
+          role="list"
+        >
           {aboutPoints.map((point) => (
             <div
               key={point.title}
@@ -41,8 +55,8 @@ export default function About() {
               </p>
             </div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

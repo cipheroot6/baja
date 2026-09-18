@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "motion/react";
+import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
 import SectionHeading from "@/components/SectionHeading";
 import { journey2026, journey2027 } from "@/lib/content";
 
@@ -12,10 +16,17 @@ export default function Journey() {
           subtitle={journey2026.summary}
         />
 
-        <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+        <motion.div
+          variants={staggerContainer(0.08)}
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
+        >
           {journey2026.metrics.map((metric) => (
-            <div
+            <motion.div
               key={metric.label}
+              variants={fadeUpItem}
               className="rounded-2xl border border-white/10 bg-navy p-5 sm:p-7"
             >
               <p className="font-mono text-3xl font-extrabold text-accent sm:text-4xl">
@@ -27,11 +38,17 @@ export default function Journey() {
               <p className="mt-1.5 text-xs leading-relaxed text-white/60 sm:text-sm">
                 {metric.note}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="mt-8 flex flex-col gap-5 rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/15 to-accent/10 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+        <motion.div
+          variants={fadeUpItem}
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          className="mt-8 flex flex-col gap-5 rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/15 to-accent/10 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+        >
           <div>
             <h3 className="font-display text-xl font-extrabold text-white sm:text-2xl">
               {journey2027.headline}: {journey2027.score}
@@ -46,7 +63,7 @@ export default function Journey() {
           >
             Join the 2027 Run
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

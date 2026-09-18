@@ -2,6 +2,9 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { motion } from "motion/react";
+import { staggerContainer, fadeUpItem } from "@/lib/motion-variants";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { siteConfig } from "@/lib/site-config";
 
 const Vehicle3D = dynamic(() => import("@/components/Vehicle3D"), {
@@ -22,12 +25,19 @@ const CATEGORIES = [
 ];
 
 export default function Hero() {
+  const { loop } = usePrefersReducedMotion();
+
   return (
     <section
       id="home"
       className="grid min-h-[100svh] bg-navy-dark md:grid-cols-2"
     >
-      <div className="relative h-[48svh] md:h-full" aria-hidden="true">
+      <motion.div
+        className="relative h-[48svh] md:h-full"
+        aria-hidden="true"
+        animate={loop ? { y: [0, -12, 0] } : {}}
+        transition={loop ? { duration: 6, repeat: Infinity, ease: "easeInOut" } : {}}
+      >
         {siteConfig.heroImage ? (
           <div className="relative h-full w-full overflow-hidden bg-navy-dark">
             <Image
@@ -43,10 +53,15 @@ export default function Hero() {
         ) : (
           <Vehicle3D modelUrl={siteConfig.model.url} />
         )}
-      </div>
+      </motion.div>
 
-      <div className="flex flex-col justify-center gap-6 px-6 py-12 sm:px-10 md:px-14 md:py-20 lg:px-16">
-        <div className="flex flex-wrap gap-2">
+      <motion.div
+        variants={staggerContainer(0.1, 0.2)}
+        initial="hidden"
+        animate="show"
+        className="flex flex-col justify-center gap-6 px-6 py-12 sm:px-10 md:px-14 md:py-20 lg:px-16"
+      >
+        <motion.div variants={fadeUpItem} className="flex flex-wrap gap-2">
           {CATEGORIES.map((category) => (
             <span
               key={category.code}
@@ -59,24 +74,33 @@ export default function Hero() {
               {category.code} · {category.label}
             </span>
           ))}
-        </div>
+        </motion.div>
 
-        <h1 className="font-display text-5xl leading-[0.95] font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl">
+        <motion.h1
+          variants={fadeUpItem}
+          className="font-display text-5xl leading-[0.95] font-extrabold tracking-tight text-white sm:text-6xl lg:text-7xl"
+        >
           Team
           <span className="mt-1 block text-primary">Abhyuday</span>
           <span className="block text-accent">Racing</span>
-        </h1>
+        </motion.h1>
 
-        <p className="max-w-md font-mono text-base font-semibold tracking-[0.15em] text-white/90 sm:text-xl">
+        <motion.p
+          variants={fadeUpItem}
+          className="max-w-md font-mono text-base font-semibold tracking-[0.15em] text-white/90 sm:text-xl"
+        >
           {siteConfig.tagline}
-        </p>
-        <p className="max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
+        </motion.p>
+        <motion.p
+          variants={fadeUpItem}
+          className="max-w-md text-sm leading-relaxed text-white/60 sm:text-base"
+        >
           {siteConfig.college}. Two vehicles — one self-driving{" "}
           <span className="text-primary">aBAJA</span>, one electric{" "}
           <span className="text-accent">eBAJA</span>. We design, build and race
           them at BAJA SAEINDIA.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
     </section>
   );
 }

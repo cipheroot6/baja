@@ -1,3 +1,8 @@
+"use client";
+
+import { motion } from "motion/react";
+import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
+
 interface SectionHeadingProps {
   eyebrow: string;
   title: string;
@@ -15,26 +20,37 @@ export default function SectionHeading({
 }: SectionHeadingProps) {
   const centered = align === "center";
   return (
-    <div className={`max-w-2xl ${centered ? "mx-auto text-center" : ""}`}>
-      <p className="font-mono text-xs font-bold tracking-[0.25em] text-primary uppercase sm:text-sm">
+    <motion.div
+      variants={staggerContainer(0.08)}
+      initial="hidden"
+      whileInView="show"
+      viewport={VIEWPORT}
+      className={`max-w-2xl ${centered ? "mx-auto text-center" : ""}`}
+    >
+      <motion.p
+        variants={fadeUpItem}
+        className="font-mono text-xs font-bold tracking-[0.25em] text-primary uppercase sm:text-sm"
+      >
         {eyebrow}
-      </p>
-      <h2
+      </motion.p>
+      <motion.h2
+        variants={fadeUpItem}
         className={`mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl ${
           dark ? "text-white" : "text-navy"
         }`}
       >
         {title}
-      </h2>
+      </motion.h2>
       {subtitle && (
-        <p
+        <motion.p
+          variants={fadeUpItem}
           className={`mt-4 text-base leading-relaxed sm:text-lg ${
             dark ? "text-white/70" : "text-navy/70"
           }`}
         >
           {subtitle}
-        </p>
+        </motion.p>
       )}
-    </div>
+    </motion.div>
   );
 }

@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "motion/react";
+import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
 import SectionHeading from "@/components/SectionHeading";
 import { applySteps } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
@@ -14,10 +18,17 @@ export default function Apply() {
           title="Ready to Race?"
         />
 
-        <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.ol
+          variants={staggerContainer(0.08)}
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+        >
           {applySteps.map((step) => (
-            <li
+            <motion.li
               key={step.step}
+              variants={fadeUpItem}
               className="rounded-2xl border border-navy/10 bg-navy/5 p-6"
             >
               <span className="font-mono text-2xl font-extrabold text-accent">
@@ -29,11 +40,17 @@ export default function Apply() {
               <p className="mt-1.5 text-sm leading-relaxed text-navy/65">
                 {step.body}
               </p>
-            </li>
+            </motion.li>
           ))}
-        </ol>
+        </motion.ol>
 
-        <div className="mt-12 overflow-hidden rounded-3xl border border-navy/10 bg-navy-dark p-4 sm:p-8">
+        <motion.div
+          variants={fadeUpItem}
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          className="mt-12 overflow-hidden rounded-3xl border border-navy/10 bg-navy-dark p-4 sm:p-8"
+        >
           <div className="mb-5 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <p className="font-display text-lg font-bold text-white sm:text-xl">
               Team Abhyuday Racing — Recruitment 2027
@@ -66,7 +83,7 @@ export default function Apply() {
               className="h-[1100px] w-full rounded-2xl bg-white sm:h-[900px]"
             />
           )}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

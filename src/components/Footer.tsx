@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "motion/react";
+import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
 import { siteConfig } from "@/lib/site-config";
 import { sections } from "@/lib/content";
 
@@ -6,8 +10,14 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/10 bg-navy-dark">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-12 sm:px-6 lg:flex-row lg:items-start lg:justify-between">
-        <div className="max-w-sm">
+      <motion.div
+        variants={staggerContainer(0.1)}
+        initial="hidden"
+        whileInView="show"
+        viewport={VIEWPORT}
+        className="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-12 sm:px-6 lg:flex-row lg:items-start lg:justify-between"
+      >
+        <motion.div variants={fadeUpItem} className="max-w-sm">
           <p className="font-display text-base font-extrabold text-white">
             TEAM<span className="text-primary"> ABHYUDAY</span>{" "}
             <span className="text-accent">RACING</span>
@@ -16,9 +26,13 @@ export default function Footer() {
             {siteConfig.college}. aBAJA & eBAJA, building since{" "}
             {siteConfig.founded}.
           </p>
-        </div>
+        </motion.div>
 
-        <nav aria-label="Footer" className="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-3">
+        <motion.nav
+          variants={fadeUpItem}
+          aria-label="Footer"
+          className="grid grid-cols-2 gap-x-10 gap-y-2 sm:grid-cols-3"
+        >
           {sections.map((section) => (
             <a
               key={section.id}
@@ -28,9 +42,9 @@ export default function Footer() {
               {section.label}
             </a>
           ))}
-        </nav>
+        </motion.nav>
 
-        <div className="text-sm text-white/50">
+        <motion.div variants={fadeUpItem} className="text-sm text-white/50">
           <p className="font-semibold text-white/80">Contact</p>
           <a
             href={`mailto:${siteConfig.contact.email}`}
@@ -38,8 +52,8 @@ export default function Footer() {
           >
             {siteConfig.contact.email}
           </a>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-6 py-5 sm:px-6">
