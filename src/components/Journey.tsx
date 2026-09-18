@@ -1,9 +1,54 @@
 "use client";
 
-import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
+import { animate, motion, useInView } from "motion/react";
 import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import SectionHeading from "@/components/SectionHeading";
 import { journey2026, journey2027 } from "@/lib/content";
+
+function MetricValue({ score }: { score: string }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const { reduced, duration: dur } = usePrefersReducedMotion();
+  const match = /^([^\d]*)([\d.]+)(.*)$/.exec(score);
+  const hasNumber = match !== null;
+  const prefix = match ? match[1] : "";
+  const numeric = match ? parseFloat(match[2]) : 0;
+  const suffix = match ? match[3] : "";
+  const decimals =
+    match && match[2].includes(".") ? match[2].split(".")[1].length : 0;
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const finalText = prefix + (hasNumber ? numeric.toFixed(decimals) : "") + suffix;
+    if (reduced || !inView) {
+      el.textContent = finalText;
+      return;
+    }
+    el.textContent = prefix + (0).toFixed(decimals) + suffix;
+    const controls = animate(0, numeric, {
+      duration: dur(1.6),
+      ease: "easeOut",
+      onUpdate: (v) => {
+        el.textContent = prefix + v.toFixed(decimals) + suffix;
+      },
+    });
+    return () => controls.stop();
+  }, [inView, reduced, dur, hasNumber, numeric, decimals, prefix, suffix]);
+
+  return (
+    <p
+      ref={ref}
+      className="font-mono text-3xl font-extrabold text-accent sm:text-4xl"
+    >
+      {prefix}
+      {hasNumber ? numeric.toFixed(decimals) : score}
+      {suffix}
+    </p>
+  );
+}
 
 export default function Journey() {
   return (
@@ -29,9 +74,7 @@ export default function Journey() {
               variants={fadeUpItem}
               className="rounded-2xl border border-white/10 bg-navy p-5 sm:p-7"
             >
-              <p className="font-mono text-3xl font-extrabold text-accent sm:text-4xl">
-                {metric.score}
-              </p>
+              <MetricValue score={metric.score} />
               <p className="mt-2 font-display text-sm font-bold text-white sm:text-base">
                 {metric.label}
               </p>

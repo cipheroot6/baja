@@ -1,12 +1,23 @@
 "use client";
 
-import { motion } from "motion/react";
-import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
+import {
+  EASE,
+  staggerContainer,
+  fadeUpItem,
+  VIEWPORT,
+} from "@/lib/motion-variants";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import SectionHeading from "@/components/SectionHeading";
 import { roadmap } from "@/lib/content";
 
 export default function Roadmap() {
   const lastIndex = roadmap.length - 1;
+  const listRef = useRef<HTMLOListElement>(null);
+  const lineInView = useInView(listRef, { once: true, amount: 0.15 });
+  const { reduced } = usePrefersReducedMotion();
+
   return (
     <section id="roadmap" className="bg-white">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-6 sm:py-24">
@@ -17,12 +28,24 @@ export default function Roadmap() {
         />
 
         <motion.ol
+          ref={listRef}
           variants={staggerContainer(0.08)}
           initial="hidden"
           whileInView="show"
           viewport={VIEWPORT}
           className="relative mt-14 ml-4 border-l-2 border-primary/30 sm:ml-6"
         >
+          <motion.span
+            aria-hidden="true"
+            className="absolute top-0 left-0 h-full w-[2px] origin-top bg-gradient-to-b from-primary to-accent"
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: reduced || lineInView ? 1 : 0 }}
+            transition={
+              reduced
+                ? { duration: 0 }
+                : { duration: 1.2, ease: EASE }
+            }
+          />
           {roadmap.map((phase, index) => (
             <motion.li
               key={phase.title}
