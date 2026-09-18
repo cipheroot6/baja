@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import {
   getPrefsSnapshot,
   resetPrefs,
@@ -240,6 +242,7 @@ function mix(hexA: string, hexB: string, t: number): string {
 export default function ThemeCustomizer() {
   const [open, setOpen] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const { reduced } = usePrefersReducedMotion();
 
   const prefs = useSyncExternalStore(subscribePrefs, getPrefsSnapshot, serverPrefs);
   const paletteId = prefs.paletteId;
@@ -307,19 +310,32 @@ export default function ThemeCustomizer() {
         </button>
       )}
 
-      {open && (
-        <div className="fixed inset-0 z-[70]">
-          <div
-            className="absolute inset-0 bg-black/70"
-            onClick={() => setOpen(false)}
-            aria-hidden="true"
-          />
-          <aside
-            id="theme-customizer"
-            role="dialog"
-            aria-label="Customize colors, fonts and transitions"
-            className="absolute inset-y-0 left-0 flex w-full max-w-2xl flex-col border-r border-white/10 bg-neutral-950 shadow-2xl shadow-black/60"
-          >
+      <AnimatePresence>
+        {open && (
+          <div className="fixed inset-0 z-[70]">
+            <motion.div
+              className="absolute inset-0 bg-black/70"
+              onClick={() => setOpen(false)}
+              aria-hidden="true"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: reduced ? 0 : 0.2 }}
+            />
+            <motion.aside
+              id="theme-customizer"
+              role="dialog"
+              aria-label="Customize colors, fonts and transitions"
+              className="absolute inset-y-0 left-0 flex w-full max-w-2xl flex-col border-r border-white/10 bg-neutral-950 shadow-2xl shadow-black/60"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={
+                reduced
+                  ? { duration: 0 }
+                  : { type: "spring", stiffness: 300, damping: 30 }
+              }
+            >
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
               <div>
                 <p className="font-mono text-[0.65rem] font-bold tracking-[0.25em] text-primary uppercase">
@@ -479,9 +495,10 @@ export default function ThemeCustomizer() {
                 Reset
               </button>
             </div>
-          </aside>
-        </div>
-      )}
+            </motion.aside>
+          </div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

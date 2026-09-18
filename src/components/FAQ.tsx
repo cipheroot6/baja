@@ -1,11 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import {
+  EASE,
+  staggerContainer,
+  fadeUpItem,
+  VIEWPORT,
+} from "@/lib/motion-variants";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import SectionHeading from "@/components/SectionHeading";
 import { faqs } from "@/lib/content";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { duration: dur } = usePrefersReducedMotion();
 
   return (
     <section id="faq" className="bg-navy">
@@ -17,14 +26,23 @@ export default function FAQ() {
           title="Questions? Answered."
         />
 
-        <div className="mt-12 space-y-3">
+        <motion.div
+          variants={staggerContainer(0.05)}
+          initial="hidden"
+          whileInView="show"
+          viewport={VIEWPORT}
+          className="mt-12 space-y-3"
+        >
           {faqs.map((faq, index) => {
             const open = openIndex === index;
             return (
-              <div
+              <motion.div
                 key={faq.q}
+                variants={fadeUpItem}
                 className={`overflow-hidden rounded-xl border transition-colors ${
-                  open ? "border-primary/50 bg-navy-light" : "border-white/10 bg-navy-dark"
+                  open
+                    ? "border-primary/50 bg-navy-light"
+                    : "border-white/10 bg-navy-dark"
                 }`}
               >
                 <button
@@ -52,24 +70,29 @@ export default function FAQ() {
                     <path d="M5 10h10M10 5v10" />
                   </svg>
                 </button>
-                <div
-                  id={`faq-panel-${index}`}
-                  role="region"
-                  aria-labelledby={`faq-button-${index}`}
-                  className={`grid transition-all duration-200 ease-out ${
-                    open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                  }`}
-                >
-                  <div className="overflow-hidden">
-                    <p className="px-5 pb-5 text-sm leading-relaxed text-white/70 sm:px-6 sm:text-base">
-                      {faq.a}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                <AnimatePresence initial={false}>
+                  {open && (
+                    <motion.div
+                      key="panel"
+                      id={`faq-panel-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-button-${index}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: dur(0.3), ease: EASE }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-5 pb-5 text-sm leading-relaxed text-white/70 sm:px-6 sm:text-base">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

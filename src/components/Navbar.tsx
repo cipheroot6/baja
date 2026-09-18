@@ -1,17 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { sections } from "@/lib/content";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
+  const { reduced } = usePrefersReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
+    );
+    sections.forEach((section) => {
+      const el = document.getElementById(section.id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -27,7 +47,14 @@ export default function Navbar() {
   };
 
   return (
-    <header
+    <motion.header
+      initial={reduced ? {} : { y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={
+        reduced
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 260, damping: 28 }
+      }
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 backdrop-blur-sm ${
         scrolled || open
           ? "border-white/10 bg-navy-dark/90"
@@ -49,9 +76,17 @@ export default function Navbar() {
             <button
               key={section.id}
               onClick={() => scrollTo(section.id)}
-              className="text-sm font-medium text-white/75 transition-colors hover:text-accent"
+              className={`relative text-sm font-medium transition-colors hover:text-accent ${
+                active === section.id ? "text-white" : "text-white/75"
+              }`}
             >
               {section.label}
+              {active === section.id && (
+                <motion.span
+                  layoutId="nav-underline"
+                  className="absolute inset-x-0 -bottom-1.5 h-0.5 rounded-full bg-primary"
+                />
+              )}
             </button>
           ))}
         </nav>
@@ -96,6 +131,6 @@ export default function Navbar() {
           ))}
         </nav>
       )}
-    </header>
+    </motion.header>
   );
 }

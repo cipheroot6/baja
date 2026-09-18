@@ -26,7 +26,7 @@ export default function Stats() {
     <section
       id="stats"
       className="border-y border-white/10 bg-navy"
-      aria-label={`${track.toUpperCase()} statistics`}
+      aria-label={`${track.toUpperCase()} statistics`}/home/flow2win/Projects/sih
     >
       <motion.div
         variants={stagger}
