@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
+import ScrollProgress from "@/components/ScrollProgress";
 import ThemeCustomizer from "@/components/ThemeCustomizer";
 import TrackChooser from "@/components/TrackChooser";
 import TrackStage from "@/components/TrackStage";
@@ -16,9 +18,11 @@ import { TrackProvider } from "@/lib/track";
 export default function Home() {
   return (
     <TrackProvider>
+      <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
+        <Marquee />
         <TrackChooser />
         <About />
         <TrackStage />
