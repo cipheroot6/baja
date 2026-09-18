@@ -38,12 +38,6 @@ export default function Footer() {
           >
             {siteConfig.contact.email}
           </a>
-          <a
-            href={`tel:${siteConfig.contact.phoneRaw}`}
-            className="mt-1 block transition-colors hover:text-accent"
-          >
-            {siteConfig.contact.phoneDisplay}
-          </a>
         </div>
       </div>
 

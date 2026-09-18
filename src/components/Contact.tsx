@@ -8,11 +8,6 @@ const CONTACTS = [
     href: `mailto:${siteConfig.contact.email}`,
   },
   {
-    label: "Phone",
-    value: siteConfig.contact.phoneDisplay,
-    href: `tel:${siteConfig.contact.phoneRaw}`,
-  },
-  {
     label: "WhatsApp",
     value: "Chat with the team",
     href: siteConfig.contact.whatsapp,
@@ -31,7 +26,7 @@ export default function Contact() {
           subtitle="Questions, collaborations, sponsorship — we want to hear from you."
         />
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2">
           {CONTACTS.map((contact) => (
             <a
               key={contact.label}

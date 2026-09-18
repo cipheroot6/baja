@@ -1,6 +1,7 @@
 export const sections = [
   { id: "about", label: "About" },
   { id: "journey", label: "Journey" },
+  { id: "why-join", label: "Why Join" },
   { id: "categories", label: "Categories" },
   { id: "departments", label: "Departments" },
   { id: "skills", label: "Skills" },

@@ -23,8 +23,6 @@ export const siteConfig = {
 
   contact: {
     email: "abhyudayghrcem2023@gmail.com",
-    phoneRaw: "+919822831625",
-    phoneDisplay: "+91 98228 31625",
     whatsapp: "#",
   },
 
