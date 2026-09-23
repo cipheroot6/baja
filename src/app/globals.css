@@ -7,6 +7,7 @@
   --color-navy: #1a1a2e;
   --color-navy-light: #262645;
   --color-navy-dark: #12121f;
+  --color-void: #080808;
   --color-accent: #00d4ff;
   --color-accent-soft: #e0f8ff;
 
@@ -55,4 +56,139 @@
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
   }
+}
+
+/* ─── Hero animation keyframes ─── */
+
+@keyframes streak {
+  0%   { transform: translateX(-120%) scaleX(0.6); opacity: 0; }
+  15%  { opacity: 0.9; }
+  85%  { opacity: 0.7; }
+  100% { transform: translateX(120%) scaleX(1); opacity: 0; }
+}
+
+@keyframes grid-draw {
+  from { stroke-dashoffset: 800; opacity: 0; }
+  10%  { opacity: 1; }
+  to   { stroke-dashoffset: 0; opacity: 0.18; }
+}
+
+@keyframes chevron-bob {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%       { transform: translateY(8px); opacity: 1; }
+}
+
+@keyframes hud-in {
+  from { opacity: 0; transform: translateY(10px) scaleX(0.96); }
+  to   { opacity: 1; transform: translateY(0) scaleX(1); }
+}
+
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* ─── Hero utility classes ─── */
+
+.hero-streak {
+  animation: streak 1.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  will-change: transform, opacity;
+}
+
+.hero-grid-line {
+  animation: grid-draw 2.2s ease-out both;
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  will-change: stroke-dashoffset;
+}
+
+.hero-chevron {
+  animation: chevron-bob 1.6s ease-in-out infinite;
+}
+
+.hero-hud {
+  animation: hud-in 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-streak,
+  .hero-grid-line,
+  .hero-chevron,
+  .hero-hud {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+/* ─── 3D Configurator / cinematic scene utilities ─── */
+
+/* Subtle dot-grid background pattern */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Neon glow text helpers */
+.neon-orange {
+  text-shadow:
+    0 0 12px rgba(255,107,0,0.9),
+    0 0 28px rgba(255,107,0,0.55),
+    0 0 56px rgba(255,107,0,0.28);
+}
+.neon-cyan {
+  text-shadow:
+    0 0 12px rgba(0,212,255,0.9),
+    0 0 28px rgba(0,212,255,0.55),
+    0 0 56px rgba(0,212,255,0.28);
+}
+
+/* Scan-line sweep across the hero */
+@keyframes scan-sweep {
+  0%   { transform: translateY(-4px); opacity: 0; }
+  3%   { opacity: 1; }
+  97%  { opacity: 0.6; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+.scan-line {
+  animation: scan-sweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-delay: 1.2s;
+  will-change: transform;
+}
+
+/* Loader progress bar shimmer */
+@keyframes shimmer {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(200%); }
+}
+.loader-shimmer {
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+/* Loader fade-in */
+@keyframes loader-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.loader-in {
+  animation: loader-in 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Corner bracket pulse */
+@keyframes bracket-in {
+  from { opacity: 0; stroke-dashoffset: 60; }
+  to   { opacity: 1; stroke-dashoffset: 0; }
+}
+.bracket-line {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: bracket-in 0.6s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scan-line { animation: none; }
+  .loader-shimmer { animation: none; }
+  .loader-in { animation: none; opacity: 1; }
+  .bracket-line { animation: none; stroke-dashoffset: 0; opacity: 1; }
 }

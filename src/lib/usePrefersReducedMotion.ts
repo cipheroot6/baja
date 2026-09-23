@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export interface MotionPref {
   reduced: boolean;
@@ -22,9 +22,17 @@ export function usePrefersReducedMotion(): MotionPref {
     };
   }, []);
 
-  return {
-    reduced,
-    duration: (ms) => (reduced ? 0 : ms),
-    loop: !reduced,
-  };
+  const duration = useCallback(
+    (ms: number) => (reduced ? 0 : ms),
+    [reduced],
+  );
+
+  return useMemo(
+    () => ({
+      reduced,
+      duration,
+      loop: !reduced,
+    }),
+    [reduced, duration],
+  );
 }
