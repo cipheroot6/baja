@@ -31,10 +31,10 @@ interface FontPair {
 const PALETTES: Palette[] = [
   {
     id: "midnight-gold",
-    name: "Midnight Gold",
-    primary: "#d4af37",
-    accent: "#f0c75e",
-    base: "#0a0f2c",
+    name: "Abhyuday Racing",
+    primary: "#ff6b00",
+    accent: "#ffffff",
+    base: "#000000",
   },
   {
     id: "royal-amethyst",

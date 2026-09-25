@@ -117,14 +117,14 @@ export default function Navbar() {
       {open && (
         <nav
           id="mobile-menu"
-          className="flex max-h-[calc(100svh-4rem)] flex-col gap-1 overflow-y-auto border-t border-white/10 bg-navy-dark px-4 pt-3 pb-6 lg:hidden"
+          className="flex h-[calc(100svh-4rem)] flex-col items-center justify-center gap-8 overflow-y-auto border-t border-white/10 bg-navy-dark/95 px-4 pb-20 lg:hidden backdrop-blur-md"
           aria-label="Mobile"
         >
           {sections.map((section) => (
             <button
               key={section.id}
               onClick={() => scrollTo(section.id)}
-              className="flex h-12 items-center rounded-lg px-3 text-left text-base font-medium text-white/85 transition-colors hover:bg-white/5 active:bg-white/10"
+              className="text-2xl font-display font-bold tracking-wide text-white transition-colors hover:text-primary active:scale-95"
             >
               {section.label}
             </button>

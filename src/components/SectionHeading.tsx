@@ -35,18 +35,14 @@ export default function SectionHeading({
       </motion.p>
       <motion.h2
         variants={fadeUpItem}
-        className={`mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl ${
-          dark ? "text-white" : "text-navy"
-        }`}
+        className={`mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl text-white`}
       >
         {title}
       </motion.h2>
       {subtitle && (
         <motion.p
           variants={fadeUpItem}
-          className={`mt-4 text-base leading-relaxed sm:text-lg ${
-            dark ? "text-white/70" : "text-navy/70"
-          }`}
+          className={`mt-4 text-base leading-relaxed sm:text-lg text-white/70`}
         >
           {subtitle}
         </motion.p>

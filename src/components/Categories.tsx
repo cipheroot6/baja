@@ -24,7 +24,7 @@ export default function Categories() {
   const category = trackContent[track].category;
 
   return (
-    <section id="categories" className="bg-white">
+    <section id="categories" className="bg-navy-dark">
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -47,7 +47,7 @@ export default function Categories() {
 
         <motion.article
           variants={item}
-          className="relative mt-12 overflow-hidden rounded-3xl border border-navy/10 bg-gradient-to-br from-white to-navy/5 p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8"
+          className="relative mt-12 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8"
         >
           <div
             className={`absolute inset-y-0 left-0 w-1.5 ${
@@ -59,24 +59,24 @@ export default function Categories() {
             <span
               className={`rounded-full px-4 py-1.5 font-mono text-base font-extrabold tracking-wide ${
                 category.id === "abaja"
-                  ? "bg-primary-soft text-primary-dark"
-                  : "bg-accent-soft text-navy"
+                  ? "bg-primary/20 text-primary"
+                  : "bg-white/20 text-white"
               }`}
             >
               {category.name}
             </span>
-            <span className="text-sm font-semibold text-navy/60">{category.fullName}</span>
+            <span className="text-sm font-semibold text-white/60">{category.fullName}</span>
           </div>
-          <p className="mt-4 pl-2 text-base leading-relaxed text-navy/75 sm:text-lg">
+          <p className="mt-4 pl-2 text-base leading-relaxed text-white/75 sm:text-lg">
             {category.blurb}
           </p>
           <div className="mt-6 grid gap-4 pl-2 sm:grid-cols-2">
             {category.points.map((point) => (
               <div key={point.label} className="flex flex-col gap-1">
-                <span className="font-display text-sm font-bold text-navy sm:text-base">
+                <span className="font-display text-sm font-bold text-white sm:text-base">
                   {point.label}
                 </span>
-                <span className="text-sm leading-relaxed text-navy/65">{point.body}</span>
+                <span className="text-sm leading-relaxed text-white/65">{point.body}</span>
               </div>
             ))}
           </div>

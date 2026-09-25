@@ -50,9 +50,6 @@ export default function HeroLoader({ onDone }: { onDone: () => void }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
         >
-          {/* grid bg */}
-          <div className="absolute inset-0 bg-grid opacity-40" />
-
           {/* central orange radial glow */}
           <div
             className="pointer-events-none absolute inset-0"
@@ -60,15 +57,6 @@ export default function HeroLoader({ onDone }: { onDone: () => void }) {
               background:
                 "radial-gradient(circle at 50% 48%, rgba(255,107,0,0.12), transparent 40%)",
             }}
-          />
-
-          {/* top hairline */}
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-
-          {/* animated scan line on loader */}
-          <div
-            className="scan-line pointer-events-none absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/80 to-transparent"
-            style={{ boxShadow: "0 0 18px rgba(255,107,0,0.7)" }}
           />
 
           {/* content card */}
@@ -81,34 +69,13 @@ export default function HeroLoader({ onDone }: { onDone: () => void }) {
 
             {/* card with corner brackets */}
             <div className="relative border-x border-white/[0.07] px-8 py-10 text-center sm:px-12 sm:py-12">
-              {/* corner — top-left */}
-              <svg className="absolute left-0 top-0" width="32" height="32" aria-hidden="true">
-                <line x1="0" y1="0" x2="0" y2="28" className="bracket-line" stroke="#ff6b00" strokeWidth="1.5" style={{ animationDelay: "0s" }} />
-                <line x1="0" y1="0" x2="28" y2="0" className="bracket-line" stroke="#ff6b00" strokeWidth="1.5" style={{ animationDelay: "0.05s" }} />
-              </svg>
-              {/* corner — top-right */}
-              <svg className="absolute right-0 top-0" width="32" height="32" aria-hidden="true">
-                <line x1="32" y1="0" x2="32" y2="28" className="bracket-line" stroke="#ff6b00" strokeWidth="1.5" style={{ animationDelay: "0.1s" }} />
-                <line x1="32" y1="0" x2="4"  y2="0"  className="bracket-line" stroke="#ff6b00" strokeWidth="1.5" style={{ animationDelay: "0.15s" }} />
-              </svg>
-              {/* corner — bottom-left */}
-              <svg className="absolute bottom-0 left-0" width="32" height="32" aria-hidden="true">
-                <line x1="0" y1="32" x2="0" y2="4"  className="bracket-line" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" style={{ animationDelay: "0.2s" }} />
-                <line x1="0" y1="32" x2="28" y2="32" className="bracket-line" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" style={{ animationDelay: "0.25s" }} />
-              </svg>
-              {/* corner — bottom-right */}
-              <svg className="absolute bottom-0 right-0" width="32" height="32" aria-hidden="true">
-                <line x1="32" y1="32" x2="32" y2="4"  className="bracket-line" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" style={{ animationDelay: "0.3s" }} />
-                <line x1="32" y1="32" x2="4"  y2="32" className="bracket-line" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5" style={{ animationDelay: "0.35s" }} />
-              </svg>
-
               {/* team name */}
               <div className="space-y-1">
                 <p className="font-display text-2xl font-extrabold tracking-[0.18em] text-white uppercase sm:text-3xl">
                   Team{" "}
                   <span className="neon-orange text-primary">Abhyuday</span>
                 </p>
-                <p className="font-display text-xl font-extrabold tracking-[0.22em] text-accent uppercase neon-cyan sm:text-2xl">
+                <p className="font-display text-xl font-extrabold tracking-[0.22em] text-accent uppercase neon-white sm:text-2xl">
                   Racing
                 </p>
                 <p className="mt-3 font-mono text-[9px] font-bold tracking-[0.35em] text-white/40 uppercase">

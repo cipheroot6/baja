@@ -17,9 +17,9 @@ import * as THREE from "three";
 const COL = {
   ORANGE:      "#ff6b00",
   ORANGE_DARK: "#cc4400",
-  CYAN:        "#00d4ff",
+  CYAN:        "#ffffff",
   PURPLE:      "#7c3aed",
-  NAVY:        "#1a1a2e",
+  NAVY:        "#000000",
   STEEL:       "#686888",   // visible mid-grey steel
   STEEL_DARK:  "#3e3e5c",   // darker steel (still visible)
   TIRE:        "#1f1f2a",   // dark tire — slightly lifted so it reads
@@ -499,51 +499,7 @@ function AutoRotate({ children, speed = 0.22 }: { children: React.ReactNode; spe
    Tech Circular Podium Floor (no z-fighting)
 ──────────────────────────────────────────────────────────── */
 function TechPodium() {
-  return (
-    <group position={[0, -1.05, 0]}>
-      {/* Outer subtle glow ring */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]}>
-        <ringGeometry args={[2.5, 2.53, 64]} />
-        <meshBasicMaterial color="#00d4ff" transparent opacity={0.35} />
-      </mesh>
-
-      {/* Inner orange accent ring */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.007, 0]}>
-        <ringGeometry args={[1.8, 1.82, 64]} />
-        <meshBasicMaterial color="#ff6b00" transparent opacity={0.3} />
-      </mesh>
-
-      {/* Center tech ring */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.009, 0]}>
-        <ringGeometry args={[0.9, 0.915, 48]} />
-        <meshBasicMaterial color="#00d4ff" transparent opacity={0.25} />
-      </mesh>
-
-      {/* Crosshair markers on podium */}
-      {[-2.4, 2.4].map((offset, i) => (
-        <React.Fragment key={i}>
-          <mesh position={[offset, 0.01, 0]}>
-            <boxGeometry args={[0.15, 0.002, 0.015]} />
-            <meshBasicMaterial color="#ff6b00" transparent opacity={0.5} />
-          </mesh>
-          <mesh position={[0, 0.01, offset]}>
-            <boxGeometry args={[0.015, 0.002, 0.15]} />
-            <meshBasicMaterial color="#00d4ff" transparent opacity={0.5} />
-          </mesh>
-        </React.Fragment>
-      ))}
-
-      {/* Circular podium disc */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <circleGeometry args={[3.2, 64]} />
-        <meshStandardMaterial
-          color="#0d0d14"
-          metalness={0.7}
-          roughness={0.35}
-        />
-      </mesh>
-    </group>
-  );
+  return null;
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -566,7 +522,7 @@ export default function Vehicle3D({ modelUrl }: { modelUrl?: string | null }) {
       <directionalLight position={[6, 9, 7]} intensity={3.6} color="#fffcf5" castShadow />
 
       {/* Cool cyan fill light from side */}
-      <directionalLight position={[-6, 5, 2]} intensity={2.2} color="#00d4ff" />
+      <directionalLight position={[-6, 5, 2]} intensity={2.2} color="#ffffff" />
 
       {/* Warm orange rim light from back */}
       <directionalLight position={[-2, 6, -6]} intensity={1.8} color="#ff6b00" />

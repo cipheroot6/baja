@@ -25,7 +25,7 @@ export default function Skills() {
   const label = track === "abaja" ? "Autonomous" : "Electric";
 
   return (
-    <section id="skills" className="bg-white">
+    <section id="skills" className="bg-navy-dark">
       <motion.div
         variants={stagger}
         initial="hidden"
@@ -47,19 +47,19 @@ export default function Skills() {
             <motion.div
               key={`${label}-${group.group}`}
               variants={item}
-              className="rounded-2xl border border-navy/10 bg-navy/5 p-6 sm:p-8"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 sm:p-8"
             >
-              <h3 className="font-display text-base font-extrabold text-navy sm:text-lg">
+              <h3 className="font-display text-base font-extrabold text-white sm:text-lg">
                 {group.group}
               </h3>
-              <p className="mt-2 text-sm font-semibold text-navy/50">
+              <p className="mt-2 text-sm font-semibold text-white/50">
                 {label} skills
               </p>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {group.skills.map((skill) => (
                   <li
                     key={skill}
-                    className="rounded-full border border-primary/30 bg-white px-4 py-1.5 font-mono text-sm font-medium text-navy"
+                    className="rounded-full border border-primary/30 bg-navy-light px-4 py-1.5 font-mono text-sm font-medium text-white"
                   >
                     {skill}
                   </li>

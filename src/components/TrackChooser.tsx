@@ -88,7 +88,7 @@ function TiltCard({ card, onSelect }: { card: CardContent; onSelect: () => void 
             background: `radial-gradient(240px circle at ${
               (glowX.get() / 100) * 100
             }% ${(glowY.get() / 100) * 100}%, ${
-              card.accent ? "rgba(255,107,0,0.18)" : "rgba(0,212,255,0.18)"
+              card.accent ? "rgba(255,107,0,0.18)" : "rgba(255,255,255,0.18)"
             }, transparent 70%)`,
           }}
           aria-hidden="true"
@@ -120,13 +120,7 @@ function TiltCard({ card, onSelect }: { card: CardContent; onSelect: () => void 
           {card.blurb}
         </p>
 
-        <span
-          className={`mt-6 inline-flex h-12 items-center justify-center rounded-xl px-6 text-sm font-bold transition-transform ${
-            card.accent ? "bg-primary text-white" : "bg-accent text-navy"
-          }`}
-        >
-          {active ? "Viewing" : `Enter ${card.code}`}
-        </span>
+
       </motion.button>
     </motion.div>
   );

@@ -19,7 +19,7 @@ export default function Roadmap() {
   const { reduced } = usePrefersReducedMotion();
 
   return (
-    <section id="roadmap" className="bg-white">
+    <section id="roadmap" className="bg-navy-dark">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-6 sm:py-24">
         <SectionHeading
           align="center"
@@ -53,7 +53,7 @@ export default function Roadmap() {
               className="relative pb-10 pl-8 sm:pl-10"
             >
               <span
-                className={`absolute top-0 left-0 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-primary bg-white ${
+                className={`absolute top-0 left-0 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-primary bg-navy-dark ${
                   index === lastIndex
                     ? "bg-primary shadow-lg shadow-primary/40"
                     : ""
@@ -63,11 +63,11 @@ export default function Roadmap() {
                 <span className="font-mono text-sm font-bold whitespace-nowrap text-primary">
                   {phase.period}
                 </span>
-                <h3 className="font-display text-lg font-bold text-navy">
+                <h3 className="font-display text-lg font-bold text-white">
                   {phase.title}
                 </h3>
               </div>
-              <p className="mt-1 max-w-xl text-sm leading-relaxed text-navy/70 sm:text-base">
+              <p className="mt-1 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
                 {phase.body}
               </p>
             </motion.li>

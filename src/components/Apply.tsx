@@ -10,7 +10,7 @@ export default function Apply() {
   const { formUrl } = siteConfig.join;
 
   return (
-    <section id="apply" className="bg-white">
+    <section id="apply" className="bg-navy-dark">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-6 sm:py-24">
         <SectionHeading
           align="center"
@@ -29,15 +29,15 @@ export default function Apply() {
             <motion.li
               key={step.step}
               variants={fadeUpItem}
-              className="rounded-2xl border border-navy/10 bg-navy/5 p-6"
+              className="rounded-2xl border border-white/10 bg-white/5 p-6"
             >
               <span className="font-mono text-2xl font-extrabold text-accent">
                 {step.step}
               </span>
-              <h3 className="mt-2 font-display text-base font-bold text-navy sm:text-lg">
+              <h3 className="mt-2 font-display text-base font-bold text-white sm:text-lg">
                 {step.title}
               </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-navy/65">
+              <p className="mt-1.5 text-sm leading-relaxed text-white/65">
                 {step.body}
               </p>
             </motion.li>
