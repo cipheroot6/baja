@@ -188,8 +188,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${montserrat.variable} ${openSans.variable} ${robotoMono.variable} ${playfair.variable} ${cormorant.variable} ${cinzel.variable} ${marcellus.variable} ${lora.variable} ${inter.variable} ${manrope.variable} ${jost.variable} ${fraunces.variable} ${bodoni.variable} ${italiana.variable} ${spaceGrotesk.variable} ${sora.variable} ${spectral.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
     </html>
   );
 }

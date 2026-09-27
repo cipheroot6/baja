@@ -2,7 +2,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import ScrollProgress from "@/components/ScrollProgress";
-import ThemeCustomizer from "@/components/ThemeCustomizer";
 import TrackChooser from "@/components/TrackChooser";
 import TrackStage from "@/components/TrackStage";
 import About from "@/components/About";
@@ -34,7 +33,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <ThemeCustomizer />
     </TrackProvider>
   );
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GLTF Test</title>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        const loader = new GLTFLoader();
+        loader.load('buggy.glb', (gltf) => {
+            console.log("Loaded successfully!", gltf.scene);
+            const box = new THREE.Box3().setFromObject(gltf.scene);
+            console.log("Bounds:", box.min, box.max);
+            const size = new THREE.Vector3();
+            box.getSize(size);
+            console.log("Size:", size);
+            // Append success message to body
+            document.body.innerHTML += "<h1>SUCCESS: Size = " + size.x + "</h1>";
+        }, undefined, (error) => {
+            console.error(error);
+            document.body.innerHTML += "<h1>ERROR</h1>" + error;
+        });
+    </script>
+</body>
+</html>

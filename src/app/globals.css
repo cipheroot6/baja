@@ -14,6 +14,18 @@
   --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-roboto-mono), ui-monospace, SFMono-Regular, monospace;
+
+  --color-white: var(--theme-white, #ffffff);
+  --color-black: var(--theme-black, #000000);
+}
+
+html.theme-light {
+  --theme-white: #0a0a0a;
+  --theme-black: #fafafa;
+  --tb-accent: #000000;
+  --tb-navy-dark: #fafafa;
+  --tb-navy: #f0f0f0;
+  --tb-navy-light: #e6e6e6;
 }
 
 :root {

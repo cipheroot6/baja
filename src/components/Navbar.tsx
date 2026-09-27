@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { sections } from "@/lib/content";
 
+import ThemeToggle from "./ThemeToggle";
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -61,15 +63,10 @@ export default function Navbar() {
           : "border-white/5 bg-navy-dark/40"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
-        <button
-          onClick={() => scrollTo("home")}
-          className="font-display text-sm font-extrabold tracking-wide text-white sm:text-base"
-          aria-label="Back to top"
-        >
-          TEAM<span className="text-primary"> ABHYUDAY</span>{" "}
-          <span className="text-accent">RACING</span>
-        </button>
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-end lg:justify-center gap-2 px-4 sm:px-6 relative">
+
+        {/* Logo/Spacer could go here if needed, but for now we just want it centered on desktop */}
+        <div className="hidden lg:flex absolute left-4 lg:left-6"></div>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
           {sections.map((section) => (
@@ -90,9 +87,11 @@ export default function Navbar() {
             </button>
           ))}
         </nav>
-
-        <button
-          onClick={() => setOpen((value) => !value)}
+        <div className="flex items-center gap-2 lg:absolute lg:right-4 lg:gap-4">
+          <ThemeToggle />
+          
+          <button
+            onClick={() => setOpen((value) => !value)}
           className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -112,6 +111,7 @@ export default function Navbar() {
             }`}
           />
         </button>
+        </div>
       </div>
 
       {open && (

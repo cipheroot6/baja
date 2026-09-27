@@ -5,8 +5,8 @@ import { animate, motion, useInView } from "motion/react";
 import { staggerContainer, fadeUpItem, VIEWPORT } from "@/lib/motion-variants";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import SectionHeading from "@/components/SectionHeading";
-import { journey2026, journey2027 } from "@/lib/content";
-
+import { trackContent } from "@/lib/content";
+import { useTrack } from "@/lib/track";
 function MetricValue({ score }: { score: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
@@ -51,6 +51,9 @@ function MetricValue({ score }: { score: string }) {
 }
 
 export default function Journey() {
+  const { track } = useTrack();
+  const { journey2026, journey2027 } = trackContent[track];
+
   return (
     <section id="journey" className="bg-navy-dark">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-6 sm:py-24">

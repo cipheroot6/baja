@@ -1,9 +1,8 @@
 export type TransitionId = "flip" | "slide" | "wipe";
 
 export interface Prefs {
-  paletteId: string;
-  fontId: string;
   transitionId: TransitionId;
+  modeId: "dark" | "light";
 }
 
 export const TRANSITION_OPTIONS: {
@@ -20,9 +19,8 @@ const STORAGE_KEY = "abhyuday-customizer";
 const CHANGE_EVENT = "abhyuday-prefs-change";
 
 const DEFAULTS: Prefs = {
-  paletteId: "midnight-gold",
-  fontId: "playfair-inter",
   transitionId: "flip",
+  modeId: "dark",
 };
 
 let cached: Prefs | null = null;

@@ -1,0 +1,13 @@
+{
+  "id": "cipheroot/baja-stp-to-glb",
+  "title": "Baja STP to GLB",
+  "code_file": "convert.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": ["cipheroot/baja-stp-files"],
+  "competition_sources": [],
+  "kernel_sources": []
+}

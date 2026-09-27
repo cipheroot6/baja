@@ -1,0 +1,103 @@
+"use client";
+
+import React, { Suspense, useMemo, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  OrbitControls,
+  useGLTF,
+  Environment,
+  ContactShadows,
+  Float,
+  Center,
+} from "@react-three/drei";
+import * as THREE from "three";
+
+function AutoRotate({ children }: { children: React.ReactNode }) {
+  const ref = useRef<THREE.Group>(null);
+  useFrame((_, dt) => {
+    if (ref.current) {
+      ref.current.rotation.y += dt * 0.15;
+    }
+  });
+  return <group ref={ref}>{children}</group>;
+}
+
+function BuggyModel({ url }: { url: string }) {
+  const { scene } = useGLTF(url);
+
+  const optimizedScene = useMemo(() => {
+    const clone = scene.clone(true);
+    
+    clone.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        
+        // Restore cinematic materials
+        if (child.material) {
+          const mats = Array.isArray(child.material) ? child.material : [child.material];
+          mats.forEach((m) => {
+            if (m instanceof THREE.MeshStandardMaterial) {
+              m.roughness = Math.max(0.3, m.roughness);
+              m.metalness = Math.min(0.8, m.metalness);
+            }
+          });
+        }
+      }
+    });
+    return clone;
+  }, [scene]);
+
+  return (
+    // Rotate 90 degrees on Y to face the X-axis
+    <group rotation={[0, Math.PI / 2, 0]}>
+      <Center top={false} bottom>
+        <primitive object={optimizedScene} scale={0.002} />
+      </Center>
+    </group>
+  );
+}
+
+export default function Vehicle3D({ modelUrl }: { modelUrl?: string | null }) {
+  return (
+    <Canvas
+      shadows
+      camera={{ position: [0, 1.5, 6], fov: 40 }}
+      dpr={[1, 2]} 
+      gl={{ antialias: true, alpha: true, toneMappingExposure: 1.0 }}
+    >
+      {/* Cinematic Lighting restored */}
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[5, 10, 5]} intensity={1.5} castShadow shadow-bias={-0.0001} />
+      <directionalLight position={[-5, 5, -5]} intensity={1.5} color="#ff6b00" />
+      <directionalLight position={[0, 2, -5]} intensity={1.0} color="#00ffff" />
+      
+      <Environment preset="night" environmentIntensity={0.5} />
+
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        minPolarAngle={Math.PI / 6}
+        maxPolarAngle={Math.PI / 2.1}
+      />
+
+      <AutoRotate>
+        <Float speed={1.5} rotationIntensity={0.03} floatIntensity={0.15}>
+          <Suspense fallback={null}>
+            {modelUrl ? <BuggyModel url={modelUrl} /> : null}
+          </Suspense>
+        </Float>
+      </AutoRotate>
+
+      {/* Cinematic Floor Shadow restored */}
+      <ContactShadows
+        position={[0, -1.0, 0]}
+        opacity={0.8}
+        scale={10}
+        blur={2.5}
+        far={3}
+        color="#000000"
+      />
+    </Canvas>
+  );
+}

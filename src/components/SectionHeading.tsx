@@ -7,7 +7,6 @@ interface SectionHeadingProps {
   eyebrow: string;
   title: string;
   subtitle?: string;
-  dark?: boolean;
   align?: "left" | "center";
 }
 
@@ -15,7 +14,6 @@ export default function SectionHeading({
   eyebrow,
   title,
   subtitle,
-  dark = false,
   align = "left",
 }: SectionHeadingProps) {
   const centered = align === "center";

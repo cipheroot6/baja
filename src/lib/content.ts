@@ -251,6 +251,8 @@ export interface TrackContent {
   category: (typeof categories)[number];
   departments: { name: string; role: string; body: string }[];
   skills: { group: string; skills: string[] }[];
+  journey2026: { headline: string; summary: string; metrics: JourneyMetric[] };
+  journey2027: { headline: string; score: string; note: string };
 }
 
 export const trackContent: Record<Track, TrackContent> = {
@@ -312,6 +314,22 @@ export const trackContent: Record<Track, TrackContent> = {
         skills: ["Teamwork", "Presentation", "Project Management", "Problem Solving"],
       },
     ],
+    journey2026: {
+      headline: "aBAJA 2026",
+      summary:
+        "Our entry into the autonomous category pushed our software engineering limits. We focused heavily on perception and safety architecture to build a solid drive-by-wire foundation.",
+      metrics: [
+        { label: "Final Overall", score: "285.40", note: "Solid debut for our autonomous stack" },
+        { label: "Software Safety", score: "20/20", note: "Failsafe DBW architecture passed" },
+        { label: "Perception", score: "125.00", note: "Robust lane & obstacle detection" },
+        { label: "Virtual Round", score: "42.50", note: "Top tier in software design" },
+      ],
+    },
+    journey2027: {
+      headline: "The 2027 Goal",
+      score: "600+",
+      note: "Seamless IPG simulation to real-world transition. Flawless autonomous endurance run without a driver in the loop.",
+    },
   },
   ebaja: {
     stats: [
@@ -371,5 +389,21 @@ export const trackContent: Record<Track, TrackContent> = {
         skills: ["Teamwork", "Presentation", "Project Management", "Problem Solving"],
       },
     ],
+    journey2026: {
+      headline: "eBAJA 2026",
+      summary:
+        "Our debut national competition taught us more than any classroom could. We walked away with a perfect safety score, endurance miles under our belt, and a clear map for 2027.",
+      metrics: [
+        { label: "Final Overall", score: "319.82", note: "Our starting point as a new team" },
+        { label: "HV Safety", score: "20/20", note: "Perfect score — the vehicle passed fully" },
+        { label: "Endurance", score: "165.64", note: "Completed a real endurance run" },
+        { label: "Virtual Round", score: "31.14", note: "Solid theoretical preparation" },
+      ],
+    },
+    journey2027: {
+      headline: "The 2027 Goal",
+      score: "700+",
+      note: "More than double our 2026 score. DBW reliability, design documentation, and a vehicle that actually completes dynamic events.",
+    },
   },
 };
