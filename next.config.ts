@@ -5,10 +5,8 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["motion/react", "@react-three/drei"],
   },
   outputFileTracingIncludes: {
-    '/api/model': ['./cad_models/**/*'],
+    '/api/model/buggy.glb': ['./cad_models/**/*'],
   },
 };
-
-export default nextConfig;
 
 export default nextConfig;

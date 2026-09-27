@@ -13,7 +13,7 @@ export const siteConfig = {
   heroImage: null as string | null,
 
   model: {
-    url: "/api/model" as string | null,
+    url: "/api/model/buggy.glb" as string | null,
   },
 
   join: {
