@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 *.stl
+.venv/
+kaggle_dataset/
+kaggle_kernel/
+cad_models/

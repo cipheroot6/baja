@@ -7,10 +7,10 @@ import { whyJoin } from "@/lib/content";
 
 export default function WhyJoin() {
   return (
-    <section id="why-join" className="bg-navy-dark">
+    <section id="why-join" className="bg-navy-">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-6 sm:py-24">
         <SectionHeading
-          dark
+          
           eyebrow="Why Join Us"
           title="Ten Reasons to Race With Abhyuday"
         />

@@ -55,10 +55,10 @@ export default function Journey() {
   const { journey2026, journey2027 } = trackContent[track];
 
   return (
-    <section id="journey" className="bg-navy-dark">
+    <section id="journey" className="bg-navy-">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-6 sm:py-24">
         <SectionHeading
-          dark
+          
           eyebrow="Our Track Record"
           title={journey2026.headline}
           subtitle={journey2026.summary}

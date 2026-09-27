@@ -20,10 +20,10 @@ const CONTACTS = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="bg-navy-dark">
+    <section id="contact" className="bg-navy-">
       <div className="mx-auto max-w-6xl px-6 py-16 sm:px-6 sm:py-24">
         <SectionHeading
-          dark
+          
           align="center"
           eyebrow="Let's Connect"
           title="Your Journey Starts Here"

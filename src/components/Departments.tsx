@@ -36,7 +36,7 @@ export default function Departments() {
       >
         <motion.div variants={item}>
           <SectionHeading
-            dark
+            
             align="center"
             eyebrow={`${label} Teams`}
             title="Six Departments. One Finish Line."

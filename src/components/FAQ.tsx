@@ -20,7 +20,7 @@ export default function FAQ() {
     <section id="faq" className="bg-navy">
       <div className="mx-auto max-w-3xl px-6 py-16 sm:px-6 sm:py-24">
         <SectionHeading
-          dark
+          
           align="center"
           eyebrow="FAQ"
           title="Questions? Answered."
@@ -42,7 +42,7 @@ export default function FAQ() {
                 className={`overflow-hidden rounded-xl border transition-colors ${
                   open
                     ? "border-primary/50 bg-navy-light"
-                    : "border-white/10 bg-navy-dark"
+                    : "border-white/10 bg-navy-"
                 }`}
               >
                 <button

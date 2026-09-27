@@ -1,9 +1,0 @@
-@import "tailwindcss";
-@theme {
-  --color-white: var(--my-white, #ffffff);
-  --color-black: var(--my-black, #000000);
-}
-.light {
-  --my-white: #000000;
-  --my-black: #ffffff;
-}
