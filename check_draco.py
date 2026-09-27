@@ -21,4 +21,4 @@ def has_draco(filepath):
         print("Extensions Required:", extensions_required)
         return 'KHR_draco_mesh_compression' in extensions_used
 
-print("Draco compressed?", has_draco('public/buggy.glb'))
+print("Draco compressed?", has_draco('cad_models/buggy.glb'))

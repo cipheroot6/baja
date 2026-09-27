@@ -1,4 +1,3 @@
-import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
@@ -6,9 +5,17 @@ export async function GET() {
   try {
     const filePath = path.join(process.cwd(), 'cad_models', 'buggy.glb');
     const stat = fs.statSync(filePath);
-    const file = fs.readFileSync(filePath);
     
-    return new NextResponse(file, {
+    const stream = fs.createReadStream(filePath);
+    const readable = new ReadableStream({
+      start(controller) {
+        stream.on('data', (chunk) => controller.enqueue(new Uint8Array(chunk)));
+        stream.on('end', () => controller.close());
+        stream.on('error', (err) => controller.error(err));
+      }
+    });
+
+    return new Response(readable, {
       status: 200,
       headers: {
         'Content-Type': 'model/gltf-binary',
@@ -17,6 +24,6 @@ export async function GET() {
       }
     });
   } catch (error) {
-    return new NextResponse('Model not found', { status: 404 });
+    return new Response('Model not found', { status: 404 });
   }
 }
