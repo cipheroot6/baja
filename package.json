@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "NODE_OPTIONS=\"--max-old-space-size=4096\" next dev",
+    "build": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "predev": "mv .venv node_modules/.venv 2>/dev/null || true && mv kaggle_dataset node_modules/kaggle_dataset 2>/dev/null || true",
+    "prebuild": "mv .venv node_modules/.venv 2>/dev/null || true && mv kaggle_dataset node_modules/kaggle_dataset 2>/dev/null || true"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
