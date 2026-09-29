@@ -16,7 +16,7 @@ export default function Hero() {
       className="relative min-h-[100svh] w-full bg-navy-dark overflow-hidden"
     >
       {/* ── 3D Vehicle Canvas ── */}
-      <div className="absolute inset-0 z-[1]" aria-label="3D Vehicle Viewport">
+      <div className="absolute inset-0 lg:left-auto lg:right-0 lg:w-[60%] z-[1]" aria-label="3D Vehicle Viewport">
         <Vehicle3D modelUrl={siteConfig.model.url} />
       </div>
 
@@ -51,7 +51,8 @@ export default function Hero() {
             className="font-display font-extrabold tracking-tight text-white"
             style={{ fontSize: "clamp(3.5rem, 8vw, 7.5rem)", lineHeight: 1.05 }}
           >
-            Team <span className="text-primary">Abhyuday</span>
+            Team <br />
+            <span className="text-primary">Abhyuday</span>
             <br />
             Racing
           </motion.h1>

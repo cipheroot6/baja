@@ -41,26 +41,62 @@ function BuggyModel({ url }: { url: string }) {
         child.castShadow = true;
         child.receiveShadow = true;
         
-        // Restore cinematic materials
-        if (child.material) {
-          const mats = Array.isArray(child.material) ? child.material : [child.material];
-          mats.forEach((m) => {
-            if (m instanceof THREE.MeshStandardMaterial) {
-              m.roughness = Math.max(0.3, m.roughness);
-              m.metalness = Math.min(0.8, m.metalness);
-            }
-          });
+        let isFrame = false;
+        let isTire = false;
+        let isMech = false;
+        
+        // Traverse upwards to check parent group names (CAD exports usually name groups, not individual meshes)
+        let curr: THREE.Object3D | null = child;
+        while (curr) {
+          const n = curr.name.toLowerCase();
+          if (n.includes("rollcage")) isFrame = true;
+          else if (n.includes("leno")) isTire = true;
+          else if (n.match(/wishbone|knuckle|flu|fll|fru|frl|shaft/)) isMech = true;
+          curr = curr.parent;
         }
+
+        const newMat = new THREE.MeshPhysicalMaterial();
+        
+        if (isFrame) {
+          // Glossy Team Orange Paint
+          newMat.color.set("#ff6b00");
+          newMat.metalness = 0.5;
+          newMat.roughness = 0.15;
+          newMat.clearcoat = 1.0;
+          newMat.clearcoatRoughness = 0.1;
+        } else if (isTire) {
+          // Matte Rubber Black
+          newMat.color.set("#0a0a0a");
+          newMat.metalness = 0.0;
+          newMat.roughness = 0.95;
+        } else if (isMech) {
+          // Black metal rods / suspension
+          newMat.color.set("#111111");
+          newMat.metalness = 0.8;
+          newMat.roughness = 0.4;
+        } else {
+          // Fallback Dark Metal / Carbon for unknown parts
+          newMat.color.set("#1a1a1a");
+          newMat.metalness = 0.6;
+          newMat.roughness = 0.5;
+        }
+        
+        // Preserve doubleSided if original had it
+        if (child.material && !Array.isArray(child.material)) {
+           newMat.side = (child.material as THREE.Material).side;
+        }
+        
+        child.material = newMat;
       }
     });
     return clone;
   }, [scene]);
 
   return (
-    // Rotate 90 degrees on Y to face the X-axis
-    <group rotation={[0, Math.PI / 2, 0]}>
+    // Rotate -90 degrees on X to convert Z-up/Y-up CAD orientation, laying it flat
+    <group rotation={[-Math.PI / 2, 0, 0]}>
       <Resize scale={2.5}>
-        <Center top={false} bottom>
+        <Center>
           <primitive object={optimizedScene} />
         </Center>
       </Resize>
@@ -101,7 +137,7 @@ export default function Vehicle3D({ modelUrl }: { modelUrl?: string | null }) {
 
       {/* Cinematic Floor Shadow restored */}
       <ContactShadows
-        position={[0, -1.0, 0]}
+        position={[0, -1.25, 0]}
         opacity={0.8}
         scale={10}
         blur={2.5}
