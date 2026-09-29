@@ -44,3 +44,6 @@ next-env.d.ts
 .venv/
 kaggle_dataset/
 kaggle_kernel/
+cad_models/
+*.glb
+*.py

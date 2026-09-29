@@ -9,8 +9,16 @@ import {
   ContactShadows,
   Float,
   Center,
+  Resize
 } from "@react-three/drei";
 import * as THREE from "three";
+
+// Suppress Three.js deprecation warnings (e.g. from internal R3F usage)
+const originalWarn = console.warn;
+console.warn = (...args) => {
+  if (typeof args[0] === 'string' && args[0].includes('THREE.Clock')) return;
+  originalWarn(...args);
+};
 
 function AutoRotate({ children }: { children: React.ReactNode }) {
   const ref = useRef<THREE.Group>(null);
@@ -51,9 +59,11 @@ function BuggyModel({ url }: { url: string }) {
   return (
     // Rotate 90 degrees on Y to face the X-axis
     <group rotation={[0, Math.PI / 2, 0]}>
-      <Center top={false} bottom>
-        <primitive object={optimizedScene} />
-      </Center>
+      <Resize scale={2.5}>
+        <Center top={false} bottom>
+          <primitive object={optimizedScene} />
+        </Center>
+      </Resize>
     </group>
   );
 }
@@ -61,7 +71,7 @@ function BuggyModel({ url }: { url: string }) {
 export default function Vehicle3D({ modelUrl }: { modelUrl?: string | null }) {
   return (
     <Canvas
-      shadows
+      shadows={{ type: THREE.PCFShadowMap }}
       camera={{ position: [0, 1.5, 6], fov: 40 }}
       dpr={[1, 2]} 
       gl={{ antialias: true, alpha: true, toneMappingExposure: 1.0 }}

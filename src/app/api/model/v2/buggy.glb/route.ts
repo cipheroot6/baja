@@ -9,7 +9,7 @@ export async function GET() {
     const stream = fs.createReadStream(filePath);
     const readable = new ReadableStream({
       start(controller) {
-        stream.on('data', (chunk) => controller.enqueue(new Uint8Array(chunk)));
+        stream.on('data', (chunk) => controller.enqueue(new Uint8Array(chunk as Buffer)));
         stream.on('end', () => controller.close());
         stream.on('error', (err) => controller.error(err));
       }

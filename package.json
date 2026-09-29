@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbo",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "predev": "mv .venv node_modules/.venv 2>/dev/null || true && mv kaggle_dataset node_modules/kaggle_dataset 2>/dev/null || true",
-    "prebuild": "mv .venv node_modules/.venv 2>/dev/null || true && mv kaggle_dataset node_modules/kaggle_dataset 2>/dev/null || true"
+    "predev": "echo 'Skipping node_modules move'",
+    "prebuild": "echo 'Skipping node_modules move'"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",

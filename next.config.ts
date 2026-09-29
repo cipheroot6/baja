@@ -1,11 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  experimental: {
-    optimizePackageImports: ["motion/react", "@react-three/drei"],
-  },
+  productionBrowserSourceMaps: false,
   outputFileTracingIncludes: {
-    '/api/model/buggy.glb': ['./cad_models/**/*'],
+    '/api/model/v2/buggy.glb': ['./cad_models/buggy.glb'],
   },
 };
 
