@@ -95,7 +95,7 @@ export const categories = [
       { label: "Powertrain", body: "Motor, controller, battery pack & BMS" },
       { label: "High-Voltage Safety", body: "TSAL, isolation monitoring, safe packaging" },
       { label: "Dynamics", body: "Suspension, tires & gear ratios tuned to race" },
-      { label: "Stack", body: "48V/72V pack · 2WD / 4WD platforms" },
+      { label: "Stack", body: "72V pack · 2WD / 4WD platforms" },
     ],
   },
 ];
@@ -333,10 +333,9 @@ export const trackContent: Record<Track, TrackContent> = {
   },
   ebaja: {
     stats: [
-      { value: "48V", label: "Battery pack architecture" },
+      { value: "72V", label: "Battery pack architecture" },
       { value: "20/20", label: "HV safety target from 2026" },
       { value: "2WD", label: "Drivetrain platform" },
-      { value: "400+", label: "Teams we race against" },
     ],
     category: categories[1],
     departments: [
@@ -348,7 +347,7 @@ export const trackContent: Record<Track, TrackContent> = {
       {
         name: "High-Voltage Safety",
         role: "The Shield",
-        body: "TSAL, isolation monitoring and safe packaging of the 48V/72V pack.",
+        body: "TSAL, isolation monitoring and safe packaging of the 72V pack.",
       },
       {
         name: "Chassis & Suspension",

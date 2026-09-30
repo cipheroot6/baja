@@ -10,7 +10,7 @@ interface CardContent {
   name: string;
   promised: string;
   blurb: string;
-  accent: boolean;
+  theme: "blue" | "orange";
 }
 
 const CARDS: CardContent[] = [
@@ -21,7 +21,7 @@ const CARDS: CardContent[] = [
     promised: "Teach a machine to race itself.",
     blurb:
       "Perception, AI and drive-by-wire. Build the stack that steers, sees and decides — with zero humans in the loop.",
-    accent: true,
+    theme: "blue",
   },
   {
     id: "ebaja",
@@ -30,7 +30,7 @@ const CARDS: CardContent[] = [
     promised: "Build a race-ready electric brute.",
     blurb:
       "Powertrain, high-voltage safety and hard dynamics. Engineer a machine that swallows the toughest terrain.",
-    accent: false,
+    theme: "orange",
   },
 ];
 
@@ -76,9 +76,9 @@ function TiltCard({ card, onSelect }: { card: CardContent; onSelect: () => void 
         style={{ rotateX: smoothX, rotateY: smoothY, transformStyle: "preserve-3d" }}
         className={`relative w-full overflow-hidden rounded-3xl border-2 p-7 text-left shadow-xl transition-colors sm:p-9 ${
           active
-            ? card.accent
+            ? card.theme === "orange"
               ? "border-primary bg-navy-light/40"
-              : "border-accent bg-navy-light/40"
+              : "border-blue-500 bg-navy-light/40"
             : "border-white/10 bg-white/5 hover:bg-white/10"
         }`}
       >
@@ -88,7 +88,7 @@ function TiltCard({ card, onSelect }: { card: CardContent; onSelect: () => void 
             background: `radial-gradient(240px circle at ${
               (glowX.get() / 100) * 100
             }% ${(glowY.get() / 100) * 100}%, ${
-              card.accent ? "rgba(255,107,0,0.18)" : "rgba(255,255,255,0.18)"
+              card.theme === "orange" ? "rgba(255,107,0,0.18)" : "rgba(59,130,246,0.18)"
             }, transparent 70%)`,
           }}
           aria-hidden="true"
@@ -96,8 +96,12 @@ function TiltCard({ card, onSelect }: { card: CardContent; onSelect: () => void 
 
         <div className="relative flex items-center justify-between">
           <span
-            className={`rounded-full px-4 py-1.5 font-mono text-base font-extrabold tracking-wide ${
-              card.accent ? "bg-primary text-white" : "bg-accent text-navy"
+            className={`rounded-full px-4 py-1.5 font-mono text-base font-extrabold tracking-wide transition-colors duration-300 ${
+              active
+                ? card.theme === "orange" 
+                  ? "bg-primary text-white" 
+                  : "bg-blue-600 text-white"
+                : "bg-white text-black"
             }`}
           >
             {card.code}

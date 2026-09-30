@@ -33,7 +33,11 @@ export default function Stats() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
-        className="mx-auto grid max-w-6xl grid-cols-2 gap-y-10 px-6 py-14 sm:px-6 lg:grid-cols-4 lg:py-16"
+        className={`mx-auto grid max-w-6xl gap-y-10 px-6 py-14 sm:px-6 lg:py-16 ${
+          stats.length === 3
+            ? "grid-cols-1 sm:grid-cols-3"
+            : "grid-cols-2 lg:grid-cols-4"
+        }`}
       >
         {stats.map((stat) => (
           <motion.div

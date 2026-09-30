@@ -37,14 +37,6 @@ export default function Hero() {
           animate="show"
           className="flex flex-col max-w-4xl"
         >
-          {/* Tagline */}
-          <motion.p
-            variants={fadeUpItem}
-            className="mb-4 font-mono text-xs sm:text-sm font-bold tracking-[0.24em] text-white/60 uppercase"
-          >
-            {siteConfig.tagline}
-          </motion.p>
-
           {/* Title */}
           <motion.h1
             variants={fadeUpItem}
@@ -62,7 +54,7 @@ export default function Hero() {
             variants={fadeUpItem}
             className="mt-6 max-w-xl text-sm sm:text-base leading-relaxed text-white/70"
           >
-            {siteConfig.college}. Two off-road race vehicles —{" "}
+            Two off-road race vehicles —{" "}
             <span className="font-semibold text-white">self-driving aBAJA</span> &amp;{" "}
             <span className="font-semibold text-white">electric eBAJA</span>.
             Engineered from scratch for BAJA SAEINDIA.

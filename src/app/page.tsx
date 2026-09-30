@@ -25,8 +25,8 @@ export default function Home() {
       <main>
         <Hero />
         <Marquee />
-        <TrackChooser />
         <About />
+        <TrackChooser />
         <TrackStageWrapper />
         <Journey />
         <WhyJoin />
